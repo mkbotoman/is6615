@@ -56,7 +56,42 @@ public class FunWithStrings {
             System.out.println("These are equal using ==");
         }
         if(s1.equals(s2)) {
-            System.out.println("These are equal using .equals");
+            System.out.println("These are equal using .equals()");
+        }
+        
+        String s3 = s1;
+        
+        if(s1 == s3) {
+            System.out.println("s1 and s3 are equal using ==");
+        }
+        if(s1.equals(s3)) {
+            System.out.println("s1 and s3 are equal using .equals()");
+        }
+        
+        String upperCaseString = s3.toUpperCase();
+        System.out.println("the uppercase string is: " + upperCaseString);
+        
+        String mixLetters = "HaPpY CoDinG";
+        String lowerCaseString = mixLetters.toLowerCase();
+        System.out.println("the lowercase string is: " + lowerCaseString);
+        
+        String replacedString = lowerCaseString.replace("happy", "enjoy");
+        System.out.println("the replaced string is: " + replacedString);
+        
+        String stringWithTab = replacedString.replace(' ', '\t');
+        System.out.println("the string with tab is: " + stringWithTab);
+        
+        System.out.println("\n\n");
+        String[] names = {"Ann", "Beth", "Carol", "Dina"};
+        System.out.println("the first name is: " + names[0]);
+        
+        System.out.println("\nthe names from a for loop");
+        for(int i = 0; i < names.length; i++) {
+            System.out.println("the name at index " + i + " is: " + names[i]);
+        }
+        
+        for (String st : names) {
+            System.out.println("the name is: " + st);
         }
         
     }
