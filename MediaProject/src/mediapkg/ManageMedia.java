@@ -35,7 +35,12 @@ public class ManageMedia {
         mIArray[2] = aSong;
         
         for(int j = 0; j<mediaArray.length; j++) {
-            System.out.println(mediaArray[j].getName());
+            if(mediaArray[j] instanceof Movie) {
+                System.out.println("Movie name is: " + mediaArray[j].getName());
+            } else {
+                System.out.println("Song name is: " + mediaArray[j].getName());    
+            }
+            
         }
         
         for(int j = 0; j<mIArray.length; j++) {
