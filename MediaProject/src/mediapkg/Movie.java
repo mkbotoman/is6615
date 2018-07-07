@@ -21,4 +21,39 @@ public class Movie extends Media {
         super (movieID, movieYear, movieName);
         genre = gen;
     }
+    
+    //overriding
+    @Override
+    public int getID() {
+        return 1000+mID;
+    }
+    
+    //hiding
+    public static int getCount() {
+        return 100+countMediaObjects;
+    }
+    
+    //overloading
+    public void resetName(String newName) {
+        mName = newName;
+    }
+    
+    public MovieGenreEnum getGenre() {
+        return genre;
+    }
+    
+    @Override
+    public String getName() {
+        return mName;
+    }
+    
+    @Override
+    public int getYear() {
+        return yearReleased;
+    }
+    
+    @Override
+    public String getInfo() {
+        return mID + ", " + mName + ", " + yearReleased + ", " + genre;
+    }
 }
