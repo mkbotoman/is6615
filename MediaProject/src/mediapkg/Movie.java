@@ -9,6 +9,16 @@ package mediapkg;
  *
  * @author maureen
  */
-public class Movie {
+public class Movie extends Media {
     
+    MovieGenreEnum genre;
+    
+    public Movie (int movieID, int movieYear, String movieName) {
+        super (movieID, movieYear, movieName);
+    }
+    
+    public Movie (int movieID, int movieYear, String movieName, MovieGenreEnum gen) {
+        super (movieID, movieYear, movieName);
+        genre = gen;
+    }
 }

@@ -9,6 +9,8 @@ package mediapkg;
  *
  * @author maureen
  */
-public class Music {
-    
+public class Music extends Media {
+    public Music (int musicID, int musicYear, String musicName) {
+        super (musicID, musicYear, musicName);
+    }
 }
