@@ -9,8 +9,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  *
@@ -21,10 +25,32 @@ public class MovieAnalyzer {
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) {
         List<Movie> moviesArrayList;
         moviesArrayList = readInData("movies.txt");
         System.out.println("the size of the list is " + moviesArrayList.size());
+        
+        //printMovies(moviesArrayList);
+        
+        //listOps(moviesArrayList);
+        Movie aMovie = moviesArrayList.get(100);
+        Queue<Movie> movieQ = new ArrayDeque<>();
+        Deque<Movie> movieS = new ArrayDeque<>();
+//        addMoviesToQs(movieQ, movieS, aMovie);
+        
+        aMovie = moviesArrayList.get(200);
+//        addMoviesToQs(movieQ, movieS, aMovie);
+        
+        aMovie = moviesArrayList.get(300);
+//        addMoviesToQs(movieQ, movieS, aMovie);
+        
+//        System.out.println("the size of the queue: " + movieQ.size());
+//        System.out.println("the size of the stack: " + movieS.size());
+//        
+//        watchMoviesinQS(movieQ, movieS);
+
+        
     }
     
     public static List<Movie> readInData(String fileName) {
@@ -98,5 +124,72 @@ public class MovieAnalyzer {
             System.err.println("IO exception");
         }
         return movieasArrayList;
+    }
+    
+    public static void printMovies(List<Movie> moviesAsList) {
+        int i = 0;
+        Movie m;
+        while(i<moviesAsList.size()) {
+            m = moviesAsList.get(i);
+            System.out.println("Movie ID: " + m.getID() + ", title: " + m.getName() + ", release year: " + m.getYear());
+            i++;
+        }
+    }
+    
+    public static void listOps(List<Movie> moviesArList) {
+        List<Movie> movieLiList = new LinkedList<>(moviesArList);
+        
+        //obtain a movie
+        long start = System.nanoTime();
+        moviesArList.get(1000);
+        long end = System.nanoTime();
+        System.out.println("the time to get an object from arraylist = " + (end-start));
+        
+        start = System.nanoTime();
+        movieLiList.get(1000);
+        end = System.nanoTime();
+        System.out.println("the time to get an object from linkedlist = " + (end-start));
+        
+        // insert
+        Movie aMovie = new Movie(2000, "NewMovie", 2017);
+        start = System.nanoTime();
+        moviesArList.add(50, aMovie);
+        end = System.nanoTime();
+        System.out.println("the time to insert an object from arraylist = " + (end-start));
+        
+        start = System.nanoTime();
+        movieLiList.add(50, aMovie);
+        end = System.nanoTime();
+        System.out.println("the time to insert an object from linkedlist = " + (end-start));
+        
+        // delete
+        start = System.nanoTime();
+        moviesArList.remove(50);
+        end = System.nanoTime();
+        System.out.println("the time to remove an object from arraylist = " + (end-start));
+        
+        start = System.nanoTime();
+        movieLiList.remove(50);
+        end = System.nanoTime();
+        System.out.println("the time to remove an object from linkedlist = " + (end-start));
+        
+    }
+    
+    public static void addMoviesToQs(Queue<Movie> movieQueue, Deque<Movie>movieStack, Movie movieToWatch) {
+        movieQueue.add(movieToWatch);
+        movieStack.push(movieToWatch);
+    }
+    
+    public static void watchMoviesinQS(Queue<Movie> movieQueue, Deque<Movie>movieStack) {
+        Movie m;
+        while(!movieQueue.isEmpty()) {
+            m = movieQueue.poll();
+            System.out.println("The queue movie watched is: " + m.getName());
+        }
+        
+        while(!movieStack.isEmpty()) {
+            m = movieStack.pop();
+            System.out.println("The stack movie watched is: " + m.getName());
+        }
     }
 }
