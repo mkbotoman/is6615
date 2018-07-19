@@ -9,7 +9,7 @@ package movieproject;
  *
  * @author maureen
  */
-public class Movie {
+public class Movie implements Comparable<Movie> {
     private int mID;
     private String mName;
     private int yearRelease;
@@ -102,4 +102,8 @@ public class Movie {
     public boolean getThriller() {return isThriller;}
     public boolean getWar() {return isWar;}
     public boolean getWestern() {return isWestern;}
+    
+    public int compareTo(Movie anotherMovie) {
+        return((this.mName).compareTo(anotherMovie.getName()));
+    }
 }

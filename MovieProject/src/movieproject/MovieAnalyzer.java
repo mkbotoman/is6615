@@ -11,10 +11,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -50,7 +58,12 @@ public class MovieAnalyzer {
 //        
 //        watchMoviesinQS(movieQ, movieS);
 
-        
+//            printUniqueYears(moviesArrayList);
+//        playWithLists(moviesArrayList);
+//        createGenreMap(moviesArrayList);
+//        searchMovieByName(moviesArrayList);
+        Movie movieToFind = moviesArrayList.get(1600);
+        searchMovieByMovie(moviesArrayList, movieToFind);
     }
     
     public static List<Movie> readInData(String fileName) {
@@ -191,5 +204,133 @@ public class MovieAnalyzer {
             m = movieStack.pop();
             System.out.println("The stack movie watched is: " + m.getName());
         }
+    }
+    
+    public static void printUniqueYears(List<Movie> movieList) {
+        List<Integer> yearList = new ArrayList<>();
+        
+        Iterator<Movie> itM = movieList.iterator();
+        
+        while(itM.hasNext()) {
+            yearList.add(itM.next().getYear());
+        }
+        System.out.println("the size of the new arrayList is " + yearList.size());
+        
+        Set<Integer> setOfYears = new LinkedHashSet<>(yearList);
+        
+        Iterator<Integer> itI =setOfYears.iterator();
+        
+        while(itI.hasNext()) {
+            System.out.print(itI.next() + "  ");
+        }
+        
+        System.out.println("the size of the linkedhashset is " + setOfYears.size());
+        setOfYears = new TreeSet<>(yearList);
+        itI =setOfYears.iterator();
+        
+        while(itI.hasNext()) {
+            System.out.print(itI.next() + "  ");
+        }
+        
+    }
+    
+    public static void playWithLists(List<Movie> movieList) {
+        List<String> nameList = new ArrayList<>();
+        Iterator<Movie> itM = movieList.iterator();
+        Movie m;
+        String name;
+        
+        while(itM.hasNext()) {
+            m =itM.next();
+            name = m.getName();
+            nameList.add(name);
+            //System.out.println(name);
+        }
+        System.out.println("the size of the new arrayList is " + nameList.size());
+        Collections.sort(nameList);
+        
+        Iterator<String> itS = nameList.iterator();
+        System.out.println("printing sorrted name\n\n\n\n\n\n\n\n");
+        
+        while(itS.hasNext()) {
+            name = itS.next();
+            System.out.println(name);
+        }
+        
+        Collections.reverse(nameList);
+        itS = nameList.iterator(); 
+        System.out.println("printing reverse name\n\n\n\n\n\n\n\n");
+        
+        while(itS.hasNext()) {
+            name = itS.next();
+            System.out.println(name);
+        }
+    }
+    
+    public static void createGenreMap(List<Movie> movieList) {
+        
+        Map<MovieGenreEnum, Integer> genreMap = new HashMap<>();
+        int actionCount = 0;
+        int comedyCount = 0;
+        
+        for(Movie m : movieList) {
+            if(m.getAction()) {
+                actionCount++;
+            }
+            if(m.getComedy()) {
+                comedyCount++;
+            }
+        }
+        genreMap.put(MovieGenreEnum.COMEDY, comedyCount);
+        genreMap.put(MovieGenreEnum.ACTION, actionCount);
+        
+        for(MovieGenreEnum mge : MovieGenreEnum.values()) {
+            if(genreMap.containsKey(mge)) {
+                System.out.println("The number of " + mge + " movies equals: " + genreMap.get(mge));
+            } else {
+                System.out.println(mge + " has not been counted");
+            }
+        }
+    }
+    
+    public static void searchMovieByName(List<Movie> movieList) {
+        Scanner sc = new Scanner(System.in);
+        String nameToFind;
+        
+        System.out.println("Please enter the move that you want to find");
+        nameToFind = sc.nextLine();
+        
+        Iterator<Movie> itM = movieList.iterator();
+        Movie m;
+        String name;
+        boolean found = false;
+        while(itM.hasNext()) {
+            m =itM.next();
+            name = m.getName();
+            if(name.contains(nameToFind)) {
+                System.out.println("found movie: id=" + m.getID() + ", name=" + m.getName() + ", year=" + m.getYear());
+                found = true;
+            }
+            
+        }
+        if(!found) {
+            System.out.println("That movie was not found");
+        }
+    }
+    
+    public static void searchMovieByMovie(List<Movie> movieList, Movie movieToFind) {
+        if(movieList.contains(movieToFind)) {
+            System.out.println("Yes found: " + movieToFind.getName());
+        }
+        int foundIndex;
+        
+        Collections.sort(movieList);
+        foundIndex = Collections.binarySearch(movieList, movieToFind);
+        if(foundIndex >= 0) {
+            System.out.println("movie was found");
+        } else {
+            System.out.println("movie was not found");
+        }
+        
     }
 }
